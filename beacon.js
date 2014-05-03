@@ -6,6 +6,7 @@
 var http = require('http');
 var url = require('url');
 var listen_port = '8080';
+var statsd_metric_name = 'beacon.failure'
 var statsd_options = {  "host": 'localhost', 
 			"port": '8125',
 			"prefix": '', 
@@ -63,7 +64,7 @@ http.createServer(function(req, res){
 		res.end(imgBinary, 'binary');
 		
 		console.log('Beacon hit: ' + client_ip);
-		client.increment('nxj_beacon');
+		client.increment(statsd_metric_name);
 	
 	} else { 
 		res.writeHead(404, {'Content-Type': 'text/plain' });
